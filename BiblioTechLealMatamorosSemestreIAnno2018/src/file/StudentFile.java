@@ -118,5 +118,8 @@ public class StudentFile {
         }
         return true;
     } // is Valid: verifica que la serie no esté repetida.
+    public boolean updateRecord(Student studentUpdate,int position) throws IOException {
+        return putValue(position, studentUpdate);
+    } // updateRecord: actualiza registro
 
 } // fin de la clase

@@ -39,4 +39,7 @@ public class StudentBusiness {
             return false;
         }
     }
+    public boolean updateRecord(Student studentUpdate,int position) throws IOException {
+        return this.studentFile.updateRecord(studentUpdate, position);
+    }
 }

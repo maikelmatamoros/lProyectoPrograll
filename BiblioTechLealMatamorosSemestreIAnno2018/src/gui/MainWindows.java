@@ -18,10 +18,11 @@ import javax.swing.JMenuItem;
  */
 public class MainWindows extends JFrame implements ActionListener{
     private JMenuBar jMenuBar;
-    private JMenuItem jmiNewStudent,jmiDeleteStudent;
+    private JMenuItem jmiNewStudent,jmiDeleteStudent,jmiUpdateStudent;
     private JMenu jmStudent;
     private JIFNewStudent jIFNewStudent;
     private JIFStudentDelete jIFStudentDelete;
+    private JIFStudentUpdate jIFStudentUpdate;
     public MainWindows(){
         super("BiblioTech");
         this.setResizable(false);
@@ -40,14 +41,17 @@ public class MainWindows extends JFrame implements ActionListener{
         
         this.jmiNewStudent=new JMenuItem("New Student");
         this.jmiDeleteStudent=new JMenuItem("Delete Student");
+        this.jmiUpdateStudent=new JMenuItem("Update Student");
         
         this.jmiNewStudent.addActionListener(this);
         this.jmiDeleteStudent.addActionListener(this);
+        this.jmiUpdateStudent.addActionListener(this);
         
-        this.jMenuBar.setSize(500, 40);
+        this.jMenuBar.setSize(700, 40);
         
         this.jmStudent.add(this.jmiNewStudent);
         this.jmStudent.add(this.jmiDeleteStudent);
+        this.jmStudent.add(this.jmiUpdateStudent);
         this.jMenuBar.add(this.jmStudent);
         this.add(this.jMenuBar);
     }
@@ -56,12 +60,16 @@ public class MainWindows extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==this.jmiNewStudent){
             this.jIFNewStudent=new JIFNewStudent();
-            this.add(jIFNewStudent);
+            this.add(this.jIFNewStudent);
             jIFNewStudent.setVisible(true);
         }else if(e.getSource()==this.jmiDeleteStudent){
             this.jIFStudentDelete=new JIFStudentDelete();
-            this.add(jIFStudentDelete);
+            this.add(this.jIFStudentDelete);
             jIFStudentDelete.setVisible(true);
+        }else if(e.getSource()==this.jmiUpdateStudent){
+            this.jIFStudentUpdate=new JIFStudentUpdate();
+            this.add(this.jIFStudentUpdate);
+            this.jIFStudentUpdate.setVisible(true);
         }
     }
 }

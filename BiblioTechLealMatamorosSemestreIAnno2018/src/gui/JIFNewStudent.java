@@ -123,11 +123,11 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
             return false;
         } else {
             try {
-                if (Integer.parseInt(this.jtfYear.getText()) < 1941 || Integer.parseInt(this.jtfYear.getText()) < 2018) {
+                if (Integer.parseInt(this.jtfYear.getText()) < 1941 || Integer.parseInt(this.jtfYear.getText()) > 2018) {
                     String message = "Invalid data";
                     if (Integer.parseInt(this.jtfYear.getText()) < 1941) {
                         message = message + ", the first student entered in 1941";
-                    } else if (Integer.parseInt(this.jtfYear.getText()) < 2018) {
+                    } else if (Integer.parseInt(this.jtfYear.getText()) > 2018) {
                         message = message + ",the year can not be greater than the current";
                     }
                     JOptionPane.showMessageDialog(this, message, "Error", 2);
