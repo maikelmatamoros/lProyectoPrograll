@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
@@ -14,17 +15,19 @@ public class MainWindows extends JFrame implements ActionListener {
     private JMenu jmStudent, jmLoans, jmMaterial;
     private JInternalFrame jifNewStudent, jifShowAllStudents, jifStudentUpdate, jifStudentDelete,
             jILoanApplication, jifNewMaterial, jifAddBookExisting;
-
+    public static JDesktopPane jDesktopPane;
     public static JMenuItem jmiNewMaterial, jmiAddBookExisting, jmiNewStudent,
             jmiDeleteStudent, jmiUpdateStudent, jmiShowStudents, jmiLoanApplication;
 
     public MainWindows() {
         super("BiblioTech");
         this.setResizable(false);
-        this.setLayout(null);
+        jDesktopPane=new JDesktopPane();
+        jDesktopPane.setLayout(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(800, 600);
         init();
+        this.add(jDesktopPane);
         this.setVisible(true);
     } // Constructor
 
@@ -100,10 +103,11 @@ public class MainWindows extends JFrame implements ActionListener {
             this.jifShowAllStudents = new JIFShowAllStudents();
             this.add(this.jifShowAllStudents);
             this.jifShowAllStudents.setVisible(true);
-        } else if (e.getSource() == jmiLoanApplication) {
-//            this.jILoanApplication=new JIFLoan();
-//            this.add(this.jILoanApplication);
-//            this.jILoanApplication.setVisible(true);
+        } else if(e.getSource()==this.jmiLoanApplication){
+            this.jILoanApplication=new JIFVerify();
+            jILoanApplication.setVisible(true);
+            jDesktopPane.add(jILoanApplication);
+            
         } else if (e.getSource() == jmiNewMaterial) {
             jmiNewMaterial.setEnabled(false);
             this.jifNewMaterial = new JIFNewMaterial();

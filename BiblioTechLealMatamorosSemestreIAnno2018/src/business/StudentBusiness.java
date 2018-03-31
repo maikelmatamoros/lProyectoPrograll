@@ -52,4 +52,8 @@ public class StudentBusiness {
         return this.studentFile.getStudentsByName(name);
         
     }
+    public boolean validLogin(String ID) throws IOException {
+        return this.studentFile.validLogin(ID);
+
+    }
 }

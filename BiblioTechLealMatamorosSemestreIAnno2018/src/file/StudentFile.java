@@ -149,5 +149,14 @@ public class StudentFile {
         } // for
         return vehiclesArray;
     } // getAllVehicles: retorna todos los vehiculos registrados
+        public boolean validLogin(String ID) throws IOException {
+        for (int i = 0; i < this.regsQuantity; i++) {
+            Student studentTemp = this.getStudent(i);
+            if (studentTemp.getId().equalsIgnoreCase(ID)) {
+                return true;
+            }
+        } // for
+        return false;
+    } // getAllVehicles: retorna todos los vehiculos registrados
 
 } // fin de la clase
