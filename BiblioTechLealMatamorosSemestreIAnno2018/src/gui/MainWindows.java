@@ -19,9 +19,9 @@ import javax.swing.JMenuItem;
  */
 public class MainWindows extends JFrame implements ActionListener{
     private JMenuBar jMenuBar;
-    private JMenuItem jmiNewStudent,jmiDeleteStudent,jmiUpdateStudent,jmiShowStudents;
-    private JMenu jmStudent;
-    private JInternalFrame jIFNewStudent,jiFShowAllStudents,jIFStudentUpdate,jIFStudentDelete;
+    private JMenuItem jmiNewStudent,jmiDeleteStudent,jmiUpdateStudent,jmiShowStudents,jmiLoanApplication;
+    private JMenu jmStudent,jmLoans;
+    private JInternalFrame jIFNewStudent,jiFShowAllStudents,jIFStudentUpdate,jIFStudentDelete,jILoanApplication;
     public MainWindows(){
         super("BiblioTech");
         this.setResizable(false);
@@ -37,16 +37,19 @@ public class MainWindows extends JFrame implements ActionListener{
         this.jMenuBar=new JMenuBar();
         
         this.jmStudent=new JMenu("Student");
+        this.jmLoans=new JMenu("Loans");
         
         this.jmiNewStudent=new JMenuItem("New Student");
         this.jmiDeleteStudent=new JMenuItem("Delete Student");
         this.jmiUpdateStudent=new JMenuItem("Update Student");
         this.jmiShowStudents=new JMenuItem("Show Students");
+        this.jmiLoanApplication=new JMenuItem("Loan Application");
         
         this.jmiNewStudent.addActionListener(this);
         this.jmiDeleteStudent.addActionListener(this);
         this.jmiUpdateStudent.addActionListener(this);
         this.jmiShowStudents.addActionListener(this);
+        this.jmiLoanApplication.addActionListener(this);
         
         this.jMenuBar.setSize(700, 40);
         
@@ -54,6 +57,8 @@ public class MainWindows extends JFrame implements ActionListener{
         this.jmStudent.add(this.jmiDeleteStudent);
         this.jmStudent.add(this.jmiUpdateStudent);
         this.jmStudent.add(this.jmiShowStudents);
+        this.jmLoans.add(this.jmiLoanApplication);
+        this.jMenuBar.add(this.jmLoans);
         this.jMenuBar.add(this.jmStudent);
         this.add(this.jMenuBar);
     }
@@ -76,6 +81,10 @@ public class MainWindows extends JFrame implements ActionListener{
             this.jiFShowAllStudents=new JIFShowAllStudents();
             this.add(this.jiFShowAllStudents);
             this.jiFShowAllStudents.setVisible(true);
+        }else if(e.getSource()==this.jmiLoanApplication){
+            this.jILoanApplication=new JIFLoan();
+            this.add(this.jILoanApplication);
+            this.jILoanApplication.setVisible(true);
         }
     }
 }

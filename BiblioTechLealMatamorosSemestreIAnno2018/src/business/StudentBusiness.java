@@ -30,16 +30,26 @@ public class StudentBusiness {
     public ArrayList<Student> getAllStudents() throws IOException {
         return this.studentFile.getAllStudents();
     }//getAllVehicles
-    
+
     public boolean deleteStudent(String id) throws IOException {
-        if(!this.studentFile.isValid(id)){
+        if (!this.studentFile.isValid(id)) {
             this.studentFile.deleteStudent(id);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    public boolean updateRecord(Student studentUpdate,int position) throws IOException {
+
+    public boolean updateRecord(Student studentUpdate, int position) throws IOException {
         return this.studentFile.updateRecord(studentUpdate, position);
+    }
+
+    public int getQuantCareer(String career) throws IOException {
+        return this.studentFile.getQuantCareer(career);
+    }
+
+    public ArrayList<Student> getStudentsByName(String name) throws IOException {
+        return this.studentFile.getStudentsByName(name);
+        
     }
 }

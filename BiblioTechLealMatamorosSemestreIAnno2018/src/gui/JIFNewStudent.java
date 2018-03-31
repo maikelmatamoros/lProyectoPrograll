@@ -10,7 +10,6 @@ import domain.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -89,14 +88,14 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
             try {
                 String first = String.valueOf(this.jComboBox.getSelectedItem().toString().charAt(0));
                 String second = String.valueOf(this.jtfYear.getText().charAt(this.jtfYear.getText().length() - 1));
-                ArrayList<Student> list = this.studentBusiness.getAllStudents();
                 String third;
-                if (list.size() < 10) {
-                    third = "00" + list.size();
-                } else if (list.size() < 100) {
-                    third = "0" + list.size();
+                int quantity=this.studentBusiness.getQuantCareer(this.jComboBox.getSelectedItem().toString());
+                if (quantity < 10) {
+                    third = "00" + quantity;
+                } else if (quantity < 100) {
+                    third = "0" + quantity;
                 } else {
-                    third = String.valueOf(list.size());
+                    third = String.valueOf(quantity);
                 }
                 String id = first + second + third;
                 if (this.studentBusiness.addEndRecord(new Student(id, this.jtfName.getText(),

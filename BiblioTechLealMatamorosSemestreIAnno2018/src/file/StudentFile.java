@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class StudentFile {
 
@@ -118,8 +119,36 @@ public class StudentFile {
         }
         return true;
     } // is Valid: verifica que la serie no esté repetida.
-    public boolean updateRecord(Student studentUpdate,int position) throws IOException {
+
+    public boolean updateRecord(Student studentUpdate, int position) throws IOException {
         return putValue(position, studentUpdate);
     } // updateRecord: actualiza registro
+
+    public int getQuantCareer(String career) throws IOException {
+        ArrayList<Student> list = getAllStudents();
+        int quantity = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getCarrera().equals(career)) {
+                quantity++;
+            }
+        }
+        return quantity;
+    }
+
+    public ArrayList<Student> getStudentsByName(String name) throws IOException {
+        ArrayList<Student> vehiclesArray = new ArrayList<>();
+        for (int i = 0; i < this.regsQuantity; i++) {
+
+            Student studentTemp = this.getStudent(i);
+            if (name.length() <= studentTemp.getName().length()) {
+                String subString = studentTemp.getName().substring(0, name.length());
+                if (subString.equalsIgnoreCase(name)) {
+                    vehiclesArray.add(studentTemp);
+                }
+            }
+
+        } // for
+        return vehiclesArray;
+    } // getAllVehicles: retorna todos los vehiculos registrados
 
 } // fin de la clase

@@ -74,9 +74,8 @@ public class JIFStudentDelete extends JInternalFrame implements ActionListener, 
             try {
                 if (!(this.list.isEmpty()) && this.studentBusiness.deleteStudent(this.list.get(this.position).getId())) {
                     JOptionPane.showMessageDialog(rootPane, "Success");
-                    this.getContentPane().remove(this.scrollPane);
+                    this.remove(this.scrollPane);
                     refresh();
-
                 } else {
                     if (this.list.isEmpty()) {
                         JOptionPane.showMessageDialog(rootPane, "There is no registered vehicle");
