@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class JIFStudentDelete extends JInternalFrame implements ActionListener, MouseListener, InternalFrameListener {
 
     private StudentBusiness studentBusiness;
-    private JTable jtbTable1;
+    private JTable jtbTable;
     private DefaultTableModel dtmModelTable;
     private JScrollPane scrollPane;
     private ArrayList<Student> list;
@@ -37,35 +37,34 @@ public class JIFStudentDelete extends JInternalFrame implements ActionListener, 
         this.refresh();
         this.init();
         this.setLocation(20, 40);
-        this.setSize(500, 325);
+        this.setSize(600, 325);
         this.addInternalFrameListener(this);
-    }//constructor
+    } // constructor
 
     public void init() {
         this.jbtnDelete = new JButton("Delete");
-        this.jbtnDelete.setBounds(350, 100, 90, 90);
+        this.jbtnDelete.setBounds(460, 100, 90, 90);
         this.jbtnDelete.addActionListener(this);
         this.add(this.jbtnDelete);
 
     } // inicializa el boton
 
     public void initTable(ArrayList<Student> list) {
-
-        Object[][] vehicles = new Object[0][0];
+        Object[][] studens = new Object[0][0];
         String[] columNames1 = {"Name", "LastName", "Year", "Career", "ID"};
-        this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
+        this.dtmModelTable = new DefaultTableModel(studens, columNames1);
+        
         for (int i = 0; i < list.size(); i++) {
-
             this.dtmModelTable.addRow(new Object[]{list.get(i).getName(),
                 list.get(i).getLastName(), list.get(i).getYear(), list.get(i).getCarrera(), list.get(i).getId()});
-
         }//for
-        this.jtbTable1 = new JTable(this.dtmModelTable);
-        this.scrollPane = new JScrollPane(this.jtbTable1);
-        scrollPane.setBounds(5, 5, 300, 285);
-        this.jtbTable1.setSelectionBackground(Color.GREEN);
-        this.add(scrollPane);
-        this.jtbTable1.addMouseListener(this);
+        
+        this.jtbTable = new JTable(this.dtmModelTable);
+        this.scrollPane = new JScrollPane(this.jtbTable);
+        this.scrollPane.setBounds(5, 5, 420, 285);
+        this.jtbTable.setSelectionBackground(Color.GREEN);
+        this.add(this.scrollPane);
+        this.jtbTable.addMouseListener(this);
     } // inicializa el modelo de la tabla cargando los valores del archivo
 
     @Override
@@ -92,10 +91,10 @@ public class JIFStudentDelete extends JInternalFrame implements ActionListener, 
 
     } // actionPerformed
 
-    //Eventos para el mouse, se usa para saber cual es el vehiculo que se selecciona en la tabla
+    //Eventos para el mouse, se usa para saber cual es el estudiante que se selecciona en la tabla
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.position = this.jtbTable1.getSelectedRow();
+        this.position = this.jtbTable.getSelectedRow();
     }
 
     @Override
@@ -124,16 +123,16 @@ public class JIFStudentDelete extends JInternalFrame implements ActionListener, 
             Logger.getLogger(JIFStudentDelete.class.getName()).log(Level.SEVERE, null, ex);
         }
         initTable(this.list);
-
     } // refresh
 
-    //evento de internalFrame, se usa para volver a hacer usable el JMitem que abre la ventana
+    //evento de internalFrame, se usa para volver a hacer usable el jmItem que abre la ventana
     @Override
     public void internalFrameOpened(InternalFrameEvent e) {
     }
 
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
+        MainWindows.jmiDeleteStudent.setEnabled(true);
     }
 
     @Override

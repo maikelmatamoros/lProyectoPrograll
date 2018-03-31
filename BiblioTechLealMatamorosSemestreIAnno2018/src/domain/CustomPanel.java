@@ -18,4 +18,5 @@ public class CustomPanel extends JPanel{
         setOpaque(false);
         super.paint(g);
     }
-}
+    
+} // fin de la clase

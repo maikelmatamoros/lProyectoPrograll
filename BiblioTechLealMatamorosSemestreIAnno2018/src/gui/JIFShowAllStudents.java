@@ -2,7 +2,6 @@ package gui;
 
 import business.StudentBusiness;
 import domain.Student;
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -18,37 +17,35 @@ public class JIFShowAllStudents extends JInternalFrame implements InternalFrameL
 
     //Atributos
     private StudentBusiness studentBusiness;
-    private JTable jtbTable1;
+    private JTable jtbTable;
     private DefaultTableModel dtmModelTable;
     private JScrollPane scrollPane;
     private ArrayList<Student> list;
 
     //Constructor
     public JIFShowAllStudents() {
-        super("Show Vehicles", false, true, false, false);
+        super("Show Students", false, true, false, false);
+        this.addInternalFrameListener(this);
         this.setLayout(null);
         this.refresh();
         this.setLocation(20, 40);
         this.setSize(600, 350);
         this.addInternalFrameListener(this);
-    }
+    } // constructor
 
     //inicializa la tabla
     public void initTable(ArrayList<Student> list) {
-
-        Object[][] vehicles = new Object[0][0];
+        Object[][] studens = new Object[0][0];
         String[] columNames1 = {"Name", "LastName", "Year", "Career", "ID"};
-        this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
+        this.dtmModelTable = new DefaultTableModel(studens, columNames1);
         for (int i = 0; i < list.size(); i++) {
-
             this.dtmModelTable.addRow(new Object[]{list.get(i).getName(),
                 list.get(i).getLastName(), list.get(i).getYear(), list.get(i).getCarrera(), list.get(i).getId()});
-
-        }//for
-        this.jtbTable1 = new JTable(this.dtmModelTable);
-        this.scrollPane = new JScrollPane(this.jtbTable1);
-        scrollPane.setBounds(5, 5, 300, 285);
-        this.jtbTable1.setSelectionBackground(Color.GREEN);
+        } // for
+        this.jtbTable = new JTable(this.dtmModelTable);
+        this.jtbTable.setEnabled(false);
+        this.scrollPane = new JScrollPane(this.jtbTable);
+        this.scrollPane.setBounds(5, 5, 580, 310);
         this.add(scrollPane);
     } // inicializa el modelo de la tabla cargando los valores del archivo
 
@@ -62,22 +59,21 @@ public class JIFShowAllStudents extends JInternalFrame implements InternalFrameL
             Logger.getLogger(JIFShowAllStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
         initTable(this.list);
-
     } // refresh
 
-    //Evento internalFrame para que cuando se cierre habilite el JMitem con el que se abre la ventana
+    //Evento internalFrame para que cuando se cierre habilite el jmItem con el que se abre la ventana
     @Override
     public void internalFrameOpened(InternalFrameEvent e) {
     }
 
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
+        MainWindows.jmiShowStudents.setEnabled(true);
     }
 
     @Override
     public void internalFrameClosed(InternalFrameEvent e) {
-    
-    } // internalFrameClosed
+    }
 
     @Override
     public void internalFrameIconified(InternalFrameEvent e) {

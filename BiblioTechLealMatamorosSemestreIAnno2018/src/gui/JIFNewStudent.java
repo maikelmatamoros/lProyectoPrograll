@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import business.StudentBusiness;
@@ -18,12 +13,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
-/**
- *
- * @author maikel
- */
-public class JIFNewStudent extends JInternalFrame implements ActionListener {
+public class JIFNewStudent extends JInternalFrame implements ActionListener, InternalFrameListener{
 
     private JComboBox jComboBox;
     private JTextField jtfName, jtfLast, jtfYear;
@@ -33,7 +26,8 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
 
     public JIFNewStudent() {
         super("Stundent Register", false, true, false, false);
-        this.setSize(500, 400);
+        this.addInternalFrameListener(this);
+        this.setSize(465, 280);
         this.setLocation(20, 40);
         this.setLayout(null);
         try {
@@ -42,13 +36,13 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
             Logger.getLogger(JIFNewStudent.class.getName()).log(Level.SEVERE, null, ex);
         }
         init();
-    }
+    } // constructor
 
     public void init() {
         this.jComboBox = new JComboBox();
-        this.jComboBox.addItem("Agronomía");
-        this.jComboBox.addItem("Educación");
-        this.jComboBox.addItem("Informática");
+        this.jComboBox.addItem("Agronomy");
+        this.jComboBox.addItem("Education");
+        this.jComboBox.addItem("Computing");
 
         this.jtfName = new JTextField();
         this.jlblName = new JLabel("Name");
@@ -59,16 +53,17 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
         this.jlblCareer = new JLabel("Career");
         this.jbtnSave = new JButton("Save");
 
-        this.jComboBox.setBounds(270, 50, 110, 30);
-        this.jtfName.setBounds(90, 10, 110, 30);
-        this.jlblName.setBounds(20, 10, 100, 30);
-        this.jtfLast.setBounds(90, 50, 110, 30);
-        this.jlblLast.setBounds(20, 50, 100, 30);
-        this.jtfYear.setBounds(90, 90, 110, 30);
-        this.jlblYear.setBounds(20, 90, 100, 30);
-        this.jlblCareer.setBounds(210, 50, 100, 30);
-        this.jbtnSave.setBounds(40, 140, 100, 30);
+        this.jComboBox.setBounds(300, 80, 110, 30);
+        this.jtfName.setBounds(120, 40, 110, 30);
+        this.jlblName.setBounds(40, 40, 100, 30);
+        this.jtfLast.setBounds(120, 80, 110, 30);
+        this.jlblLast.setBounds(40, 80, 100, 30);
+        this.jtfYear.setBounds(120, 120, 110, 30);
+        this.jlblYear.setBounds(40, 120, 100, 30);
+        this.jlblCareer.setBounds(240, 80, 100, 30);
+        this.jbtnSave.setBounds(120, 170, 100, 30);
 
+        this.jbtnSave.setFocusable(false);
         this.jbtnSave.addActionListener(this);
 
         this.add(this.jComboBox);
@@ -80,7 +75,7 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
         this.add(this.jlblYear);
         this.add(this.jlblCareer);
         this.add(this.jbtnSave);
-    }
+    } // init
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -89,7 +84,7 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
                 String first = String.valueOf(this.jComboBox.getSelectedItem().toString().charAt(0));
                 String second = String.valueOf(this.jtfYear.getText().charAt(this.jtfYear.getText().length() - 1));
                 String third;
-                int quantity=this.studentBusiness.getQuantCareer(this.jComboBox.getSelectedItem().toString());
+                int quantity = this.studentBusiness.getQuantCareer(this.jComboBox.getSelectedItem().toString());
                 if (quantity < 10) {
                     third = "00" + quantity;
                 } else if (quantity < 100) {
@@ -113,10 +108,9 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
             }
         }
 
-    }
+    } // actionPerformed
 
     private boolean validation() {
-
         if (this.jtfName.getText().equals("") || this.jtfLast.getText().equals("") || this.jtfYear.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "All spaces are required", "Error", 0);
             return false;
@@ -127,7 +121,7 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
                     if (Integer.parseInt(this.jtfYear.getText()) < 1941) {
                         message = message + ", the first student entered in 1941";
                     } else if (Integer.parseInt(this.jtfYear.getText()) > 2018) {
-                        message = message + ",the year can not be greater than the current";
+                        message = message + ", the year can not be greater than the current";
                     }
                     JOptionPane.showMessageDialog(this, message, "Error", 2);
                     return false;
@@ -136,7 +130,31 @@ public class JIFNewStudent extends JInternalFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "The year must be a number.", "Error", 0);
                 return false;
             }
-        }
+        } // else
         return true;
-    } // newData
-}
+    } // validation
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+        MainWindows.jmiNewStudent.setEnabled(true);
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {}
+
+} // fin de la clase

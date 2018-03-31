@@ -115,10 +115,9 @@ public class MaterialFile {
 
     private void rewrite(List<Material> list) throws IOException, ClassNotFoundException {
         File file = new File(this.path);
-        file.delete();
-        for (int i = 0; i < list.size(); i++) {
-            addMaterial(list.get(i));
-        }
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
+        objectOutputStream.writeUnshared(list);
+        objectOutputStream.close();   
     } // rewrite: Actualiza el archivo
     
 } // fin de la clase

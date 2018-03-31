@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
-/**
- *
- * @author maikel
- */
 public class Student {
     private String id,name,lastName,carrera;
     private int year;
@@ -72,4 +63,5 @@ public class Student {
     public int sizeInBytes(){
         return this.name.length()*2+this.lastName.length()*2+this.id.length()*2+this.carrera.length()*2+4;
     }
-}
+    
+} // fin de la clase

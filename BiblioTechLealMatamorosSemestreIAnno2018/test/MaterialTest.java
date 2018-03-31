@@ -108,9 +108,9 @@ public class MaterialTest {
     public void addBookExisting(){
         ArrayList<Material> list = getListType();
         for (Material material : list) {
-            if(material.getCode()==100000000){
+            if(material.getCode()==100000003){
                 try {
-                    materialFile.addBookExixting(material.getCode(), 5);
+                    materialFile.addBookExixting(material.getCode(), 10);
                 } catch (IOException | ClassNotFoundException ex) {
                     Logger.getLogger(MaterialTest.class.getName()).log(Level.SEVERE, null, ex);
                 }

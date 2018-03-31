@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import business.StudentBusiness;
@@ -19,12 +14,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
-/**
- *
- * @author maikel
- */
-public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
+public class JIFStudentUpdate extends JInternalFrame implements ActionListener , InternalFrameListener{
 
     private JComboBox jComboCareer, jComboID;
     private JTextField jtfName, jtfLast, jtfYear;
@@ -35,7 +28,8 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
 
     public JIFStudentUpdate() {
         super("Stundent Update", false, true, false, false);
-        this.setSize(500, 400);
+        this.addInternalFrameListener(this);
+        this.setSize(450, 300);
         this.setLocation(20, 40);
         this.setLayout(null);
         try {
@@ -45,14 +39,15 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
             Logger.getLogger(JIFNewStudent.class.getName()).log(Level.SEVERE, null, ex);
         }
         init();
-    }
+    } // constructor
 
     public void init() {
         this.jComboCareer = new JComboBox();
         this.jComboCareer.addItem("Agronomía");
         this.jComboCareer.addItem("Educación");
         this.jComboCareer.addItem("Informática");
-
+        this.jComboCareer.setEnabled(false);
+        
         this.jComboID = new JComboBox();
 
         if (list.isEmpty()) {
@@ -74,18 +69,18 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
         this.jbtnUpdate = new JButton("Update");
         this.jbtnSearch = new JButton("Search");
 
-        this.jComboID.setBounds(90, 10, 110, 30);
-        this.jlblID.setBounds(20, 10, 110, 30);
-        this.jtfName.setBounds(90, 50, 110, 30);
-        this.jlblName.setBounds(20, 50, 100, 30);
-        this.jtfLast.setBounds(90, 90, 110, 30);
-        this.jlblLast.setBounds(20, 90, 100, 30);
-        this.jtfYear.setBounds(90, 130, 110, 30);
-        this.jlblYear.setBounds(20, 130, 100, 30);
-        this.jlblCareer.setBounds(210, 50, 100, 30);
-        this.jComboCareer.setBounds(270, 50, 110, 30);
-        this.jbtnUpdate.setBounds(40, 180, 100, 30);
-        this.jbtnSearch.setBounds(210, 10, 110, 30);
+        this.jComboID.setBounds(110, 20, 110, 30);
+        this.jlblID.setBounds(30, 20, 110, 30);
+        this.jtfName.setBounds(110, 60, 110, 30);
+        this.jlblName.setBounds(30, 60, 100, 30);
+        this.jtfLast.setBounds(110, 100, 110, 30);
+        this.jlblLast.setBounds(30, 100, 100, 30);
+        this.jtfYear.setBounds(110, 140, 110, 30);
+        this.jlblYear.setBounds(30, 140, 100, 30);
+        this.jlblCareer.setBounds(230, 60, 100, 30);
+        this.jComboCareer.setBounds(290, 60, 110, 30);
+        this.jbtnUpdate.setBounds(110, 190, 100, 30);
+        this.jbtnSearch.setBounds(230, 20, 110, 30);
 
         this.jbtnSearch.addActionListener(this);
         this.jbtnUpdate.addActionListener(this);
@@ -102,7 +97,7 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
         this.add(this.jComboID);
         this.add(this.jlblID);
         this.add(this.jbtnSearch);
-    }
+    } // init
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -120,11 +115,11 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
                         this.list.get(this.jComboID.getSelectedIndex()).setLastName(this.jtfLast.getText());
                         this.list.get(this.jComboID.getSelectedIndex()).setCarrera(this.jComboCareer.getSelectedItem().toString());
                         this.list.get(this.jComboID.getSelectedIndex()).setYear(Integer.parseInt(this.jtfYear.getText()));
-                        this.list.get(this.jComboID.getSelectedIndex()).setId(id);                       
+                        this.list.get(this.jComboID.getSelectedIndex()).setId(id);
                         this.jtfLast.setText("");
                         this.jtfName.setText("");
                         this.jtfYear.setText("");
-                        
+
                         refresh();
                         JOptionPane.showMessageDialog(rootPane, "Success, your institucional ID is: " + id);
                     } else {
@@ -147,10 +142,9 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
             }
 
         }
-    }
+    } // actionPerformed
 
     private boolean validation() {
-
         if (this.jtfName.getText().equals("") || this.jtfLast.getText().equals("") || this.jtfYear.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "All spaces are required", "Error", 0);
             return false;
@@ -161,7 +155,7 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
                     if (Integer.parseInt(this.jtfYear.getText()) < 1941) {
                         message = message + ", the first student entered in 1941";
                     } else if (Integer.parseInt(this.jtfYear.getText()) > 2018) {
-                        message = message + ",the year can not be greater than the current";
+                        message = message + ", the year can not be greater than the current";
                     }
                     JOptionPane.showMessageDialog(this, message, "Error", 2);
                     return false;
@@ -172,12 +166,36 @@ public class JIFStudentUpdate extends JInternalFrame implements ActionListener {
             }
         }
         return true;
-    } // newData
+    } // validation
 
     private void refresh() {
         this.jComboID.removeAllItems();
-        for (int i=0;i<this.list.size();i++) {
+        for (int i = 0; i < this.list.size(); i++) {
             this.jComboID.addItem(this.list.get(i).getId());
-        }
+        } // for
+    } // refresh
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+        MainWindows.jmiUpdateStudent.setEnabled(true);
     }
-}
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {}
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {}
+    
+} // fin de la clase
