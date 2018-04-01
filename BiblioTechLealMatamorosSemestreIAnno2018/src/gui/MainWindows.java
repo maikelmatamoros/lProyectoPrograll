@@ -14,10 +14,11 @@ public class MainWindows extends JFrame implements ActionListener {
     private JMenuBar jMenuBar;
     private JMenu jmStudent, jmLoans, jmMaterial;
     private JInternalFrame jifNewStudent, jifShowAllStudents, jifStudentUpdate, jifStudentDelete,
-            jifLoanApplication, jifNewMaterial, jifAddBookExisting, jifDevolution;
+            jifLoanApplication, jifNewMaterial, jifAddBookExisting, jifDevolution, jifAllMaterials;
     public static JDesktopPane jDesktopPane;
     public static JMenuItem jmiNewMaterial, jmiAddBookExisting, jmiNewStudent,
-            jmiDeleteStudent, jmiUpdateStudent, jmiShowStudents, jmiLoanApplication, jmiDevolution;
+            jmiDeleteStudent, jmiUpdateStudent, jmiShowStudents, jmiLoanApplication,
+            jmiDevolution, jmiAllMaterials;
 
     public MainWindows() {
         super("BiblioTech");
@@ -46,6 +47,7 @@ public class MainWindows extends JFrame implements ActionListener {
         jmiDevolution = new JMenuItem("Devolution");
         jmiNewMaterial = new JMenuItem("New Material");
         jmiAddBookExisting = new JMenuItem("Add Book Existing");
+        jmiAllMaterials = new JMenuItem("All Materials");
 
         this.jmStudent.setMnemonic('S');
         this.jmMaterial.setMnemonic('M');
@@ -58,6 +60,7 @@ public class MainWindows extends JFrame implements ActionListener {
         jmiNewMaterial.setMnemonic('N');
         jmiAddBookExisting.setMnemonic('A');
         jmiDevolution.setMnemonic('D');
+        jmiAllMaterials.setMnemonic('M');
 
         jmiNewStudent.addActionListener(this);
         jmiDeleteStudent.addActionListener(this);
@@ -67,6 +70,7 @@ public class MainWindows extends JFrame implements ActionListener {
         jmiNewMaterial.addActionListener(this);
         jmiAddBookExisting.addActionListener(this);
         jmiDevolution.addActionListener(this);
+        jmiAllMaterials.addActionListener(this);
 
         this.jMenuBar.setSize(800, 30);
 
@@ -78,6 +82,7 @@ public class MainWindows extends JFrame implements ActionListener {
         this.jmLoans.add(jmiDevolution);
         this.jmMaterial.add(jmiNewMaterial);
         this.jmMaterial.add(jmiAddBookExisting);
+        this.jmMaterial.add(jmiAllMaterials);
         this.jMenuBar.add(this.jmLoans);
         this.jMenuBar.add(this.jmStudent);
         this.jMenuBar.add(this.jmMaterial);
@@ -126,6 +131,11 @@ public class MainWindows extends JFrame implements ActionListener {
             this.jifDevolution = new JIFDevolution();
             jDesktopPane.add(this.jifDevolution);
             this.jifDevolution.setVisible(true);
+        } else if(e.getSource() == jmiAllMaterials){
+            jmiAllMaterials.setEnabled(false);
+            this.jifAllMaterials = new JIFAllMaterials();
+            jDesktopPane.add(this.jifAllMaterials);
+            this.jifAllMaterials.setVisible(true);
         }
     } // actionPerformed
 

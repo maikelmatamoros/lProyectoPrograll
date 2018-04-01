@@ -99,6 +99,21 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
 
         this.bgFormat = new ButtonGroup();
 
+        this.jbOkBook.setFocusable(false);
+        this.jbSearch.setFocusable(false);
+
+        this.jbOkBook.addActionListener(this);
+        this.jbSearch.addActionListener(this);
+
+        this.jbOkAudiovisual.addActionListener(this);
+        this.jbOkAudiovisual.setFocusable(false);
+
+        this.jbOkDisk.addActionListener(this);
+        this.jbOkDisk.setFocusable(false);
+
+        this.jbOkOther.addActionListener(this);
+        this.jbOkOther.setFocusable(false);
+
         String themes[] = {"Other", "Agronomy", "Anthropology", "Biology", "Chemistry", "Computing",
             "Economic Sciences", "Essay", "Geography", "Geology", "History", "Languages", "Law",
             "Math", "Medicine", "Music", "Pedagogy", "Philology", "Philosophy", "Psychology", "Science",
@@ -120,12 +135,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         refresh();
 
         this.pathImage = "";
-
-        this.jbOkBook.setFocusable(false);
-        this.jbSearch.setFocusable(false);
-
-        this.jbOkBook.addActionListener(this);
-        this.jbSearch.addActionListener(this);
 
         this.jlImage.setBounds(30, 70, 50, 15);
         this.jlName.setBounds(30, 110, 40, 15);
@@ -174,9 +183,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.setSize(360, 240);
         refresh();
 
-        this.jbOkAudiovisual.addActionListener(this);
-        this.jbOkAudiovisual.setFocusable(false);
-
         this.jlBrand.setBounds(30, 70, 50, 15);
         this.jlDescription.setBounds(30, 110, 90, 15);
         this.jcbBrand.setBounds(130, 65, 170, 25);
@@ -193,9 +199,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
     private void initDisk() {
         this.setSize(360, 300);
         refresh();
-
-        this.jbOkDisk.addActionListener(this);
-        this.jbOkDisk.setFocusable(false);
 
         this.jlType.setBounds(30, 70, 50, 15);
         this.jlName.setBounds(30, 110, 50, 15);
@@ -217,9 +220,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
     private void initOther() {
         this.setSize(360, 240);
         refresh();
-
-        this.jbOkOther.addActionListener(this);
-        this.jbOkOther.setFocusable(false);
 
         this.jlName.setBounds(30, 70, 50, 15);
         this.jlDescription.setBounds(30, 110, 90, 15);
@@ -355,15 +355,15 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
                     JOptionPane.showMessageDialog(this, "All spaces are required", "Error", 0);
                 } else {
                     Book book = new Book(name, author, year, this.jcbTheme.getSelectedItem().toString(),
-                            language, country,"", -1, this.jcbOption.getSelectedItem().toString(), 1, 1);
+                            language, country, "", -1, this.jcbOption.getSelectedItem().toString(), 1, 1);
                     if (!this.pathImage.equals("")) {
                         book.setPathImage(this.pathImage);
                     } else {
                         book.setPathImage("/assets/sinIma.png");
                     }
-                    if(this.jrbDigital.isSelected()){
+                    if (this.jrbDigital.isSelected()) {
                         book.setFormat("Digital");
-                    }else{
+                    } else {
                         book.setFormat("Physical");
                     }
                     try {
