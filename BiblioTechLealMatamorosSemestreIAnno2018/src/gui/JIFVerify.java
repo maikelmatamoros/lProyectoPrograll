@@ -35,12 +35,11 @@ public class JIFVerify extends JInternalFrame implements ActionListener, MouseLi
     private JTable jtbTable1;
     private DefaultTableModel dtmModelTable;
     private JScrollPane scrollPane;
-    private ArrayList<Student> list;
     private JLabel jlblID;
     private JButton jbtnLogin;
     private JTextField jTextField;
     private JComboBox jComboMaterial;
-    private int position;
+    public static String ID;
     private TableRowSorter trs;
     private String path;
 
@@ -108,7 +107,7 @@ public class JIFVerify extends JInternalFrame implements ActionListener, MouseLi
             if (this.studentBusiness.validLogin(this.jTextField.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "Succes");
                 this.dispose();
-                JIFLoan jIFLoan = new JIFLoan();
+                JIFLoan jIFLoan = new JIFLoan(this.jTextField.getText());
                 jIFLoan.setVisible(true);
                 MainWindows.jDesktopPane.add(jIFLoan);
                 //refresh(this.change);
@@ -124,7 +123,7 @@ public class JIFVerify extends JInternalFrame implements ActionListener, MouseLi
     //Eventos para el mouse, se usa para saber cual es el vehiculo que se selecciona en la tabla
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.position = this.jtbTable1.getSelectedRow();
+       // this.position = this.jtbTable1.getSelectedRow();
     }
 
     @Override

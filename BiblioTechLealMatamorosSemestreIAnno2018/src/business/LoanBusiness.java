@@ -21,10 +21,11 @@ public class LoanBusiness {
         this.loanFile=new LoanFile();
     }
     
-    public void addLoan(Loan loan) throws IOException, ClassNotFoundException {
+    public boolean addLoan(Loan loan) throws IOException, ClassNotFoundException {
         this.loanFile.addLoan(loan);
+        return true;
     }
-    public boolean deleteLoan(String code) throws IOException, ClassNotFoundException {
+    public boolean deleteLoan(int code) throws IOException, ClassNotFoundException {
         return this.loanFile.deleteLoan(code);
     }
     public List<Loan> getPersonLoans(String ID) throws IOException, ClassNotFoundException {

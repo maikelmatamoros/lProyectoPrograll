@@ -50,7 +50,7 @@ public class MaterialFile {
         booksAndAudiovisual.add(audiovisuals);
         return booksAndAudiovisual;
     } // getBooksAndAudiovisual: retorna lista con ArrayList de libros en la posicion 0
-      // y ArrayList de Audiovisuales en la posicion 1
+    // y ArrayList de Audiovisuales en la posicion 1
 
     public List<Material> getAllMaterials() throws IOException, ClassNotFoundException {
         File myFile = new File(this.path);
@@ -117,7 +117,23 @@ public class MaterialFile {
         File file = new File(this.path);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
         objectOutputStream.writeUnshared(list);
-        objectOutputStream.close();   
+        objectOutputStream.close();
     } // rewrite: Actualiza el archivo
- 
+
+    private boolean update(int code, int type) throws IOException, ClassNotFoundException {
+        List<ArrayList> materials = getBooksAndAudiovisual();
+        
+        if(type==0){
+            
+        }
+            for (int i = 0; i < materials.get(type).size(); i++) {
+                if(code>5){
+                    
+                }
+            }
+
+        
+            return true;
+    }
+
 } // fin de la clase

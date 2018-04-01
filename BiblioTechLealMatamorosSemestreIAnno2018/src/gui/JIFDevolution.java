@@ -4,6 +4,7 @@ import business.MaterialBusiness;
 import business.StudentBusiness;
 import domain.Audiovisual;
 import domain.Book;
+import domain.Loan;
 import domain.Material;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,7 @@ public class JIFDevolution extends JInternalFrame implements InternalFrameListen
     private DefaultTableModel dtmModelTable;
     private JScrollPane scrollPane;
     private ArrayList<Material> list;
+    private ArrayList<Loan>loanList;
     private JLabel jlStudentID;
     private JTextField jtfStudentID;
     private JButton jbCheck;

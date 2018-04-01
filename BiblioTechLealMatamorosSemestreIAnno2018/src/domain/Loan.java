@@ -12,31 +12,31 @@ import java.io.Serializable;
  * @author maikel
  */
 public class Loan implements Serializable{
-    private String code;
+    private int code;
     private String loanDate;
     private String returnDate;
     private String ID;
 
     public Loan(){
-        this.code = "";
+        this.code =0;
         this.loanDate = "";
         this.returnDate = "";
         this.ID ="";
     
     }
     
-    public Loan(String code, String loanDate,String returnDate, String ID) {
+    public Loan(int code, String loanDate,String returnDate, String ID) {
         this.code = code;
         this.loanDate = loanDate;
         this.returnDate=returnDate;
         this.ID = ID;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
@@ -62,6 +62,11 @@ public class Loan implements Serializable{
 
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    @Override
+    public String toString() {
+        return "Loan{" + "code=" + code + ", loanDate=" + loanDate + ", returnDate=" + returnDate + ", ID=" + ID + '}';
     }
 
 

@@ -31,9 +31,10 @@ public class LoanFile {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
         objectOutputStream.writeUnshared(loanList);
         objectOutputStream.close();
+        System.out.println("Guarda");
     } // addLoan: agrega nuevo registro
 
-    public boolean deleteLoan(String code) throws IOException, ClassNotFoundException {
+    public boolean deleteLoan(int code) throws IOException, ClassNotFoundException {
         File myFile = new File(this.path);
         List<Loan> loanList = new ArrayList<>();
 
@@ -44,7 +45,7 @@ public class LoanFile {
         }
 
         for (int i = 0; i < loanList.size(); i++) {
-            if (loanList.get(i).getCode().equalsIgnoreCase(code)) {
+            if (loanList.get(i).getCode()==code) {
                 loanList.remove(i);
                 ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(myFile));
                 output.writeUnshared(loanList);
