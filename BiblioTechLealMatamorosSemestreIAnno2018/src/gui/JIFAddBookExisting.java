@@ -164,6 +164,9 @@ public class JIFAddBookExisting extends javax.swing.JInternalFrame implements In
             } // for
             this.jtBooks.setModel(dtmModelTable);
             this.jtBooks.setEnabled(false);
+            jtBooks.getColumnModel().getColumn(0).setPreferredWidth(10);
+            jtBooks.getColumnModel().getColumn(2).setPreferredWidth(10);
+            jtBooks.getColumnModel().getColumn(3).setPreferredWidth(10);
         } // initTable
         catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(JIFAddBookExisting.class.getName()).log(Level.SEVERE, null, ex);

@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
@@ -37,6 +38,7 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.setSize(360, 150);
         this.setLocation(20, 40);
         this.setLayout(null);
+
         this.materialBusiness = new MaterialBusiness();
         init();
         this.addInternalFrameListener(this);
@@ -44,50 +46,78 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
     } // constructor
 
     private void init() {
-        initComboBoxOption();
+        initComponets();
+        this.jcbOption.addItem("Book");
+        this.jcbOption.addItem("Disk");
+        this.jcbOption.addItem("Laptop");
+        this.jcbOption.addItem("Mouse");
+        this.jcbOption.addItem("Projector");
+        this.jcbOption.addItem("Other");
+
+        this.jcbOption.setBounds(30, 20, 120, 25);
+        this.jcbOption.addActionListener(this);
+
+        this.add(jcbOption);
         this.initBook();
     } // init
 
-    private void initComboBoxOption() {
-        this.jcbOption = new JComboBox(new String[]{"Book","Disk","Laptop","Mouse","Projector","Other"});
-        this.jcbOption.setBounds(30, 20, 120, 25);
-        this.jcbOption.addActionListener(this);
-        this.add(jcbOption);
-    } // initComboBoxOption
+    private void initComponets() {
+        this.jlYear = new JLabel("Year");
+        this.jlType = new JLabel("Type");
+        this.jlName = new JLabel("Name");
+        this.jlImage = new JLabel("Image");
+        this.jlBrand = new JLabel("Brand");
+        this.jlTheme = new JLabel("Theme");
+        this.jlAuthor = new JLabel("Author");
+        this.jlFormat = new JLabel("Format");
+        this.jlCountry = new JLabel("Country");
+        this.jlLanguage = new JLabel("Language");
+        this.jlDescription = new JLabel("Description");
+
+        this.jtfName = new JTextField();
+        this.jtfYear = new JTextField();
+        this.jtfAuthor = new JTextField();
+        this.jtfCountry = new JTextField();
+        this.jtfLanguage = new JTextField();
+        this.jtfPathImage = new JTextField();
+        this.jtfPathImage.setEditable(false);
+        this.jtfDescription = new JTextField();
+
+        this.jbOkBook = new JButton("OK");
+        this.jbOkAudiovisual = new JButton("OK");
+        this.jbOkDisk = new JButton("OK");
+        this.jbOkOther = new JButton("OK");
+        this.jbSearch = new JButton("...");
+
+        this.jrbDigital = new JRadioButton("Digital");
+        this.jrbPhysical = new JRadioButton("Physical");
+
+        this.jcbType = new JComboBox();
+        this.jcbTheme = new JComboBox();
+        this.jcbBrand = new JComboBox();
+        this.jcbOption = new JComboBox();
+
+        this.bgFormat = new ButtonGroup();
+
+        String themes[] = {"Other", "Agronomy", "Anthropology", "Biology", "Chemistry", "Computing",
+            "Economic Sciences", "Essay", "Geography", "Geology", "History", "Languages", "Law",
+            "Math", "Medicine", "Music", "Pedagogy", "Philology", "Philosophy", "Psychology", "Science",
+            "Sociology", "Tesis", "Thesis"};
+        String brands[] = {"Hp", "Toshiba", "Dell"};
+
+        this.jcbTheme.setModel(new javax.swing.DefaultComboBoxModel<>(themes));
+        this.jcbBrand.setModel(new javax.swing.DefaultComboBoxModel<>(brands));
+
+        this.jcbType.addItem("CD");
+        this.jcbType.addItem("DVD");
+
+        this.bgFormat.add(this.jrbDigital);
+        this.bgFormat.add(this.jrbPhysical);
+    } // initComponets
 
     private void initBook() {
         this.setSize(360, 480);
         refresh();
-
-        this.jlImage = new JLabel("Image");
-        this.jlName = new JLabel("Name");
-        this.jlAuthor = new JLabel("Author");
-        this.jlYear = new JLabel("Year");
-        this.jlTheme = new JLabel("Theme");
-        this.jlLanguage = new JLabel("Language");
-        this.jlCountry = new JLabel("Country");
-        this.jlFormat = new JLabel("Format");
-        this.jtfPathImage = new JTextField();
-        this.jtfName = new JTextField();
-        this.jtfAuthor = new JTextField();
-        this.jtfYear = new JTextField();
-        this.jtfLanguage = new JTextField();
-        this.jtfCountry = new JTextField();
-        this.jrbDigital = new JRadioButton("Digital");
-        this.jrbPhysical = new JRadioButton("Physical");
-        this.jbOkBook = new JButton("Book");
-        this.jbSearch = new JButton("Search");
-
-        this.bgFormat = new ButtonGroup();
-        this.bgFormat.add(this.jrbDigital);
-        this.bgFormat.add(this.jrbPhysical);
-        
-        this.jcbTheme = new JComboBox(new String[]{"Other", "Agronomy",
-            "Anthropology", "Biology", "Chemistry", "Computing",
-            "Economic Sciences", "Essay", "Geography", "Geology", "History",
-            "Languages", "Law", "Math", "Medicine", "Music", "Pedagogy",
-            "Philology", "Philosophy", "Psychology", "Science",
-            "Sociology", "Thesis"});
 
         this.pathImage = "";
 
@@ -143,12 +173,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
     private void initAudiovisual() {
         this.setSize(360, 240);
         refresh();
-        
-        this.jlBrand = new JLabel("Brand");
-        this.jlDescription = new JLabel("Description");
-        this.jcbBrand = new JComboBox(new String[]{"Hp", "Toshiba", "Dell"});
-        this.jtfDescription = new JTextField();
-        this.jbOkAudiovisual = new JButton("OK");
 
         this.jbOkAudiovisual.addActionListener(this);
         this.jbOkAudiovisual.setFocusable(false);
@@ -169,14 +193,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
     private void initDisk() {
         this.setSize(360, 300);
         refresh();
-
-        this.jlType = new JLabel("Type");
-        this.jlName = new JLabel("Name");
-        this.jlDescription = new JLabel("Description");
-        this.jcbType = new JComboBox(new String[]{"CD", "DVD"});
-        this.jtfName = new JTextField();
-        this.jtfDescription = new JTextField();
-        this.jbOkDisk = new JButton("OK");
 
         this.jbOkDisk.addActionListener(this);
         this.jbOkDisk.setFocusable(false);
@@ -202,12 +218,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.setSize(360, 240);
         refresh();
 
-        this.jlName = new JLabel("Name");
-        this.jlDescription = new JLabel("Description");
-        this.jtfName = new JTextField();
-        this.jtfDescription = new JTextField();
-        this.jbOkOther = new JButton("OK");
-
         this.jbOkOther.addActionListener(this);
         this.jbOkOther.setFocusable(false);
 
@@ -225,8 +235,90 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
     } // initOther
 
     private void refresh() {
-        this.getContentPane().removeAll();
-        initComboBoxOption();
+        if (this.jcbTheme.isShowing()) {
+            this.remove(this.jcbTheme);
+        }
+        if (this.jcbBrand.isShowing()) {
+            this.remove(this.jcbBrand);
+        }
+        if (this.jcbType.isShowing()) {
+            this.remove(this.jcbType);
+        }
+        if (this.jlImage.isShowing()) {
+            this.remove(this.jlImage);
+        }
+        if (this.jlName.isShowing()) {
+            this.remove(this.jlName);
+        }
+        if (this.jlAuthor.isShowing()) {
+            this.remove(this.jlAuthor);
+        }
+        if (this.jlYear.isShowing()) {
+            this.remove(this.jlYear);
+        }
+        if (this.jlTheme.isShowing()) {
+            this.remove(this.jlTheme);
+        }
+        if (this.jlLanguage.isShowing()) {
+            this.remove(this.jlLanguage);
+        }
+        if (this.jlCountry.isShowing()) {
+            this.remove(this.jlCountry);
+        }
+        if (this.jlFormat.isShowing()) {
+            this.remove(this.jlFormat);
+        }
+        if (this.jlBrand.isShowing()) {
+            this.remove(this.jlBrand);
+        }
+        if (this.jlDescription.isShowing()) {
+            this.remove(this.jlDescription);
+        }
+        if (this.jlType.isShowing()) {
+            this.remove(this.jlType);
+        }
+        if (this.jtfPathImage.isShowing()) {
+            this.remove(this.jtfPathImage);
+        }
+        if (this.jtfName.isShowing()) {
+            this.remove(this.jtfName);
+        }
+        if (this.jtfAuthor.isShowing()) {
+            this.remove(this.jtfAuthor);
+        }
+        if (this.jtfYear.isShowing()) {
+            this.remove(this.jtfYear);
+        }
+        if (this.jtfLanguage.isShowing()) {
+            this.remove(this.jtfLanguage);
+        }
+        if (this.jtfCountry.isShowing()) {
+            this.remove(this.jtfCountry);
+        }
+        if (this.jtfDescription.isShowing()) {
+            this.remove(this.jtfDescription);
+        }
+        if (this.jrbPhysical.isShowing()) {
+            this.remove(this.jrbPhysical);
+        }
+        if (this.jrbDigital.isShowing()) {
+            this.remove(this.jrbDigital);
+        }
+        if (this.jbSearch.isShowing()) {
+            this.remove(this.jbSearch);
+        }
+        if (this.jbOkBook.isShowing()) {
+            this.remove(this.jbOkBook);
+        }
+        if (this.jbOkAudiovisual.isShowing()) {
+            this.remove(this.jbOkAudiovisual);
+        }
+        if (this.jbOkDisk.isShowing()) {
+            this.remove(this.jbOkDisk);
+        }
+        if (this.jbOkOther.isShowing()) {
+            this.remove(this.jbOkOther);
+        }
     } // refresh
 
     private void cleanTextFields() {
@@ -263,15 +355,15 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
                     JOptionPane.showMessageDialog(this, "All spaces are required", "Error", 0);
                 } else {
                     Book book = new Book(name, author, year, this.jcbTheme.getSelectedItem().toString(),
-                            language, country, "", -1, this.jcbOption.getSelectedItem().toString(), 1, 1);
+                            language, country,"", -1, this.jcbOption.getSelectedItem().toString(), 1, 1);
                     if (!this.pathImage.equals("")) {
                         book.setPathImage(this.pathImage);
                     } else {
                         book.setPathImage("/assets/sinIma.png");
                     }
-                    if (this.jrbDigital.isSelected()) {
+                    if(this.jrbDigital.isSelected()){
                         book.setFormat("Digital");
-                    } else {
+                    }else{
                         book.setFormat("Physical");
                     }
                     try {

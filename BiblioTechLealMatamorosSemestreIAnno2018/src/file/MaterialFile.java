@@ -84,14 +84,14 @@ public class MaterialFile {
 
     public Material getMaterial(int code) throws IOException, ClassNotFoundException {
         List<Material> materialList = getAllMaterials();
-        Material persona = null;
+        Material material = null;
         for (int i = 0; i < materialList.size(); i++) {
             if (materialList.get(i).getCode() == code) {
-                persona = materialList.get(i);
+                material = materialList.get(i);
                 break;
             } // if 
         } // for i
-        return persona;
+        return material;
     } // getMaterial: retorna objeto material segun codigo
 
     public int getCodeMaterial() throws IOException, ClassNotFoundException {

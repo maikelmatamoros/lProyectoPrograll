@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+//import org.junit.After;
+//import org.junit.AfterClass;
+//import org.junit.Before;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
+//import static org.junit.Assert.*;
 
 public class MaterialTest {
 
@@ -23,19 +23,19 @@ public class MaterialTest {
         materialFile = new MaterialFile();
     }
 
-    @BeforeClass
+    //@BeforeClass
     public static void setUpClass() {
     }
 
-    @AfterClass
+    //@AfterClass
     public static void tearDownClass() {
     }
 
-    @Before
+    //@Before
     public void setUp() {
     }
 
-    @After
+    //@After
     public void tearDown() {
     }
 
@@ -56,7 +56,7 @@ public class MaterialTest {
         }
     } // add10Materials
 
-    @Test
+    //@Test
     public void getAllMaterials() throws IOException {
         try {
             List<Material> materials = materialFile.getAllMaterials();
