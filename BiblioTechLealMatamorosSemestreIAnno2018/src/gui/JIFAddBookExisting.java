@@ -135,9 +135,20 @@ public class JIFAddBookExisting extends javax.swing.JInternalFrame implements In
         }
     }//GEN-LAST:event_jbAddActionPerformed
 
+    private ArrayList<Material> removeDigitals(ArrayList<Material> list) {
+        ArrayList<Material> newArrayList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (!((Book) list.get(i)).getFormat().equals("Digital")) {
+                newArrayList.add(list.get(i));
+            }
+        }
+        return newArrayList;
+    } // removeDigitals
+
     private void init() {
         try {
-            ArrayList<Material> list = materialBusiness.getBooksAndAudiovisual().get(0);
+            ArrayList<Material> list = removeDigitals(this.materialBusiness.getBooksAndAudiovisual().get(0));
+
             String codes[] = new String[list.size()];
             for (int i = 0; i < codes.length; i++) {
                 codes[i] = "" + list.get(i).getCode();
@@ -152,7 +163,7 @@ public class JIFAddBookExisting extends javax.swing.JInternalFrame implements In
 
     private void initTable() {
         try {
-            ArrayList<Material> list = materialBusiness.getBooksAndAudiovisual().get(0);
+            ArrayList<Material> list = removeDigitals(this.materialBusiness.getBooksAndAudiovisual().get(0));
             Object[][] employeeDates = new Object[0][0];
             String[] columNames1 = {"Code", "Name", "Format", "Amount"};
             DefaultTableModel dtmModelTable = new DefaultTableModel(employeeDates, columNames1);
