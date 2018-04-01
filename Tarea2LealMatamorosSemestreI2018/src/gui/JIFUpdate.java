@@ -209,8 +209,7 @@ public class JIFUpdate extends javax.swing.JInternalFrame implements InternalFra
         this.buttonGroup1 = new ButtonGroup();
         this.buttonGroup1.add(this.jrbYes);
         this.buttonGroup1.add(this.jrbNo);
-
-    } // init
+    } // initButtonGroup
 
     private ArrayList<Vehicle> orderList(ArrayList<Vehicle> list) {
         Vehicle temp;
@@ -300,4 +299,5 @@ public class JIFUpdate extends javax.swing.JInternalFrame implements InternalFra
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
     }
+
 } // fin de la clase

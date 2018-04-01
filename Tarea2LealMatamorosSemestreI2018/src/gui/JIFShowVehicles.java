@@ -23,19 +23,17 @@ public class JIFShowVehicles extends JInternalFrame implements InternalFrameList
     private JScrollPane scrollPane;
     private ArrayList<Vehicle> list;
 
-    //Constructor
     public JIFShowVehicles() {
         super("Show Vehicles", false, true, false, false);
         this.setLayout(null);
         this.refresh();
         this.setLocation(20, 40);
-        this.setSize(600, 350);
+        this.setSize(520, 340);
         this.addInternalFrameListener(this);
-    }
+    } // Constructor
 
     //inicializa la tabla
     public void initTable(ArrayList<Vehicle> list) {
-
         Object[][] employeeDates = new Object[0][0];
         String[] columNames1 = {"Name", "Year", "Mileage", "American", "Serie"};
         this.dtmModelTable = new DefaultTableModel(employeeDates, columNames1);
@@ -47,7 +45,7 @@ public class JIFShowVehicles extends JInternalFrame implements InternalFrameList
         } // for
         this.jtbTable1 = new JTable(this.dtmModelTable);
         this.scrollPane = new JScrollPane(this.jtbTable1);
-        scrollPane.setBounds(50, 5, 500, 300);
+        scrollPane.setBounds(5, 5, 500, 300);
         this.setForeground(Color.red);
         this.jtbTable1.setSelectionBackground(Color.GREEN);
         this.getContentPane().add(scrollPane);

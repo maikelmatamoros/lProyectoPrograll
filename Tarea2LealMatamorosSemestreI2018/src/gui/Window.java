@@ -37,29 +37,29 @@ public class Window extends JFrame implements ActionListener {
         this.jmInsert = new JMenu("Insert");
         this.jmUtilities = new JMenu("Utilities");
 
-        this.jmiNewVehicle = new JMenuItem("New Vehicle");
-        this.jmiDelete = new JMenuItem("Delete");
-        this.jmiShow = new JMenuItem("Show Vehicles");
-        this.jmiUpdate = new JMenuItem("Update vehicle");
+        jmiNewVehicle = new JMenuItem("New Vehicle");
+        jmiDelete = new JMenuItem("Delete");
+        jmiShow = new JMenuItem("Show Vehicles");
+        jmiUpdate = new JMenuItem("Update vehicle");
 
-        this.jmiNewVehicle.addActionListener(this);
-        this.jmiDelete.addActionListener(this);
-        this.jmiShow.addActionListener(this);
-        this.jmiUpdate.addActionListener(this);
+        jmiNewVehicle.addActionListener(this);
+        jmiDelete.addActionListener(this);
+        jmiShow.addActionListener(this);
+        jmiUpdate.addActionListener(this);
 
-        this.jmInsert.setMnemonic('I');
-        this.jmUtilities.setMnemonic('U');
-        this.jmiNewVehicle.setMnemonic('N');
-        this.jmiDelete.setMnemonic('D');
-        this.jmiShow.setMnemonic('S');
-        this.jmiUpdate.setMnemonic('U');
+        jmInsert.setMnemonic('I');
+        jmUtilities.setMnemonic('U');
+        jmiNewVehicle.setMnemonic('N');
+        jmiDelete.setMnemonic('D');
+        jmiShow.setMnemonic('S');
+        jmiUpdate.setMnemonic('U');
 
         this.jMenuBar.add(this.jmInsert);
         this.jMenuBar.add(this.jmUtilities);
-        this.jmInsert.add(this.jmiNewVehicle);
-        this.jmUtilities.add(this.jmiDelete);
-        this.jmUtilities.add(this.jmiShow);
-        this.jmUtilities.add(this.jmiUpdate);
+        this.jmInsert.add(jmiNewVehicle);
+        this.jmUtilities.add(jmiDelete);
+        this.jmUtilities.add(jmiShow);
+        this.jmUtilities.add(jmiUpdate);
 
         this.jMenuBar.setSize(800, 30);
         this.add(this.jMenuBar);
@@ -67,10 +67,10 @@ public class Window extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.jmiNewVehicle) {
+        if (e.getSource() == jmiNewVehicle) {
             // Al abrir la ventana deshabilito el JMenuItem para evitar que se
             // abran muchas veces una ventana
-            this.jmiNewVehicle.setEnabled(false);
+            jmiNewVehicle.setEnabled(false);
             try {
                 this.jifNewVehicle = new JIFNewVehicle();
             } catch (IOException ex) {
@@ -78,24 +78,24 @@ public class Window extends JFrame implements ActionListener {
             }
             this.add(this.jifNewVehicle);
             this.jifNewVehicle.setVisible(true);
-        } else if (e.getSource() == this.jmiDelete) {
+        } else if (e.getSource() == jmiDelete) {
             // Al abrir la ventana deshabilito el JMenuItem para evitar que se
             // abran muchas veces una ventana
-            this.jmiDelete.setEnabled(false);
+            jmiDelete.setEnabled(false);
             this.jifDelete = new JIFDeleteVehicle();
             this.add(this.jifDelete);
             this.jifDelete.setVisible(true);
-        } else if (e.getSource() == this.jmiShow) {
+        } else if (e.getSource() == jmiShow) {
             // Al abrir la ventana deshabilito el JMenuItem para evitar que se
             // abran muchas veces una ventana
-            this.jmiShow.setEnabled(false);
+            jmiShow.setEnabled(false);
             this.jifShowVehicles = new JIFShowVehicles();
             this.add(this.jifShowVehicles);
             this.jifShowVehicles.setVisible(true);
-        } else if(e.getSource() == this.jmiUpdate){
+        } else if (e.getSource() == jmiUpdate) {
             // Al abrir la ventana deshabilito el JMenuItem para evitar que se
             // abran muchas veces una ventana
-            this.jmiUpdate.setEnabled(false);
+            jmiUpdate.setEnabled(false);
             this.jifUpdate = new JIFUpdate();
             this.add(this.jifUpdate);
             this.jifUpdate.setVisible(true);
