@@ -111,6 +111,7 @@ public class JIFVerify extends JInternalFrame implements ActionListener, MouseLi
                 JIFLoan jIFLoan = new JIFLoan();
                 jIFLoan.setVisible(true);
                 MainWindows.jDesktopPane.add(jIFLoan);
+                JIFLoan.ID=this.jTextField.getText();
                 //refresh(this.change);
 
             } else {

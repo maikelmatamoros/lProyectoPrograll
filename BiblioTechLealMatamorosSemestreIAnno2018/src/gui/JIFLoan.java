@@ -5,10 +5,13 @@
  */
 package gui;
 
+import business.LoanBusiness;
 import business.MaterialBusiness;
 import com.toedter.calendar.JDateChooser;
 import domain.Audiovisual;
 import domain.Book;
+import domain.Loan;
+import domain.Material;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,13 +45,14 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
     private JTable jtbTable;
     private DefaultTableModel dtmModelTable;
     private JScrollPane scrollPane;
-    private TableRowSorter trs;
+    private int position;
     private ArrayList<Book> list1;
     private ArrayList<Audiovisual> list2;
     private String format;
-    private JTextField jtfText, jtfCode;
+    private JTextField jtfText, jtfCode, jtfCode1;
     private JLabel jlblText, jlblCode;
-
+    public static String ID;
+    private ArrayList<Material>listPositions;
     public JIFLoan() {
         super("Loan", false, true, false, false);
         this.setSize(700, 500);
@@ -62,24 +66,31 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
         this.jDateChooser = new JDateChooser();
         this.jtfText = new JTextField();
         this.jtfCode = new JTextField();
+        this.jtfCode1 = new JTextField();
         this.jComboBox = new JComboBox();
         this.jlblCode = new JLabel("Insert Code");
         this.jlblText = new JLabel("Insert Name");
+        this.jbtnLoan = new JButton("Loan");
+        this.listPositions=new ArrayList<>();
+        
 
         this.jComboSelection.setBounds(30, 30, 100, 30);
         this.jDateChooser.setBounds(570, 130, 100, 30);
         this.jtfText.setBounds(555, 60, 100, 30);
         this.jtfCode.setBounds(445, 60, 100, 30);
+        this.jtfCode1.setBounds(445, 60, 100, 30);
         this.jlblCode.setBounds(450, 20, 100, 30);
         this.jlblText.setBounds(555, 20, 100, 30);
+        this.jbtnLoan.setBounds(460, 200, 100, 40);
         this.jtfText.setVisible(false);
         this.jtfCode.setVisible(false);
         this.jlblCode.setVisible(false);
         this.jlblText.setVisible(false);
+        this.jtfCode1.setVisible(false);
         this.jComboSelection.addActionListener(this);
         this.jtfText.addKeyListener(this);
         this.jtfCode.addKeyListener(this);
-
+        this.jtfCode1.addKeyListener(this);
         Object[][] vehicles = new Object[0][0];
         String[] columNames1 = {"Name", "Author", "Year", "Language", "Theme"};
         this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
@@ -96,6 +107,8 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
         this.add(this.jComboBox);
         this.add(this.jlblCode);
         this.add(this.jlblText);
+        this.add(this.jtfCode1);
+        this.add(this.jbtnLoan);
     }
 
     @Override
@@ -113,6 +126,7 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(JIFLoan.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                initTableBook(list1);
                 this.jComboBox = new JComboBox(new String[]{"Physical", "Digital"});
                 this.jComboBox.setBounds(150, 30, 100, 30);
                 this.jComboBox.addActionListener(this);
@@ -132,6 +146,11 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
                 if (this.jlblText.isShowing()) {
                     this.jtfText.setVisible(false);
                     this.jlblText.setVisible(false);
+                    this.jtfCode1.setVisible(true);
+
+                } else {
+                    this.jtfCode1.setVisible(true);
+                    this.jlblCode.setVisible(true);
                 }
                 this.jComboBox = new JComboBox(new String[]{"Disk", "Laptop", "Mouse", "Projector", "Other"});
                 this.jComboBox.setBounds(150, 30, 100, 30);
@@ -149,12 +168,22 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
 
             }
 
+        }else if(e.getSource()==this.jbtnLoan){
+            LoanBusiness loanBusiness=new LoanBusiness();
+            
+//            try {
+//                loanBusiness.addLoan(new Loan(code, format, format, ID);
+//            } catch (IOException ex) {
+//                Logger.getLogger(JIFLoan.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(JIFLoan.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }
 
     public void initTableBook(ArrayList<Book> list, String subString, String format, int var) {
         this.remove(this.scrollPane);
-
+        this.listPositions.clear();
         Object[][] vehicles = new Object[0][0];
         String[] columNames1 = {"Name", "Author", "Year", "Language", "Theme"};
         this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
@@ -163,6 +192,7 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
                 //System.out.println("Entra");
                 this.dtmModelTable.addRow(new Object[]{list.get(i).getName(),
                     list.get(i).getAuthor(), list.get(i).getYear(), list.get(i).getLanguage(), list.get(i).getTheme()});
+//                this.listPositions.add(i);
             } else if (this.list1.get(i).getFormat().equals(format) && String.valueOf(this.list1.get(i).getCode()).substring(0, subString.length()).equalsIgnoreCase(subString) && var == 1) {
                 this.dtmModelTable.addRow(new Object[]{list.get(i).getName(),
                     list.get(i).getAuthor(), list.get(i).getYear(), list.get(i).getLanguage(), list.get(i).getTheme()});
@@ -207,28 +237,43 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
         this.jtbTable.addMouseListener(this);
     } // inicializa el modelo de la tabla cargando los valores del archivo
 
+    public void initTableBook(ArrayList<Book> list) {
+        this.remove(this.scrollPane);
+        Object[][] vehicles = new Object[0][0];
+        String[] columNames1 = {"Name", "Author", "Year", "Language", "Theme"};
+        this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
+        for (int i = 0; i < list.size(); i++) {
+            this.dtmModelTable.addRow(new Object[]{list.get(i).getName(),
+                list.get(i).getAuthor(), list.get(i).getYear(), list.get(i).getLanguage(), list.get(i).getTheme()});
+
+        }//for
+
+        this.jtbTable = new JTable(this.dtmModelTable);
+        this.scrollPane = new JScrollPane(this.jtbTable);
+        scrollPane.setBounds(10, 80, 400, 285);
+        this.jtbTable.setSelectionBackground(Color.GREEN);
+
+        this.add(scrollPane);
+        this.jtbTable.addMouseListener(this);
+    } // inicializa el modelo de la tabla cargando los valores del archivo
+
     public void initTableMaterial(ArrayList<Audiovisual> list, String subString, String format, int var) {
         this.remove(this.scrollPane);
-
+        this.listPositions.clear();
         Object[][] vehicles = new Object[0][0];
         String[] columNames1 = {"Type", "ID", "Description", "Code"};
         this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
         for (int i = 0; i < list.size(); i++) {
-            if (this.list1.get(i).getFormat().equals(format)
-                    && this.list1.get(i).getName().substring(0, subString.length()).equalsIgnoreCase(subString) && var == 0) {
+            if (list.get(i).getType().equals(format)
+                    && String.valueOf(this.list2.get(i).getCode()).substring(0, subString.length()).equalsIgnoreCase(subString) && var == 1) {
                 //System.out.println("Entra");
                 this.dtmModelTable.addRow(new Object[]{list.get(i).getType(),
                     list.get(i).getId(), list.get(i).getDescription(), list.get(i).getCode()});
-            } else if (this.list1.get(i).getFormat().equals(format)
-                    && this.list1.get(i).getName().substring(0, subString.length()).equalsIgnoreCase(subString) && var == 1) {
-
-                this.dtmModelTable.addRow(new Object[]{list.get(i).getType(),
-                    list.get(i).getId(), list.get(i).getDescription(), list.get(i).getCode()});
+//                this.listPositions.add(i);
             }
         }//for
 
         this.jtbTable = new JTable(this.dtmModelTable);
-        trs = new TableRowSorter(dtmModelTable);
         this.scrollPane = new JScrollPane(this.jtbTable);
         scrollPane.setBounds(10, 80, 400, 285);
         this.jtbTable.setSelectionBackground(Color.GREEN);
@@ -243,7 +288,7 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
         String[] columNames1 = {"Type", "ID", "Description", "Code"};
         this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
         for (int i = 0; i < list.size(); i++) {
-            if (this.list1.get(i).getFormat().equals(format)) {
+            if (list.get(i).getType().equals(format)) {
                 //System.out.println("Entra");
                 this.dtmModelTable.addRow(new Object[]{list.get(i).getType(),
                     list.get(i).getId(), list.get(i).getDescription(), list.get(i).getCode()});
@@ -258,9 +303,30 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
         this.jtbTable.addMouseListener(this);
     } // inicializa el modelo de la tabla cargando los valores del archivo
 
+    public void initTableMaterial(ArrayList<Audiovisual> list) {
+        this.remove(this.scrollPane);
+
+        Object[][] vehicles = new Object[0][0];
+        String[] columNames1 = {"Type", "ID", "Description", "Code"};
+        this.dtmModelTable = new DefaultTableModel(vehicles, columNames1);
+        for (int i = 0; i < list.size(); i++) {
+
+            this.dtmModelTable.addRow(new Object[]{list.get(i).getType(),
+                list.get(i).getId(), list.get(i).getDescription(), list.get(i).getCode()});
+
+        }//for
+
+        this.jtbTable = new JTable(this.dtmModelTable);
+        this.scrollPane = new JScrollPane(this.jtbTable);
+        scrollPane.setBounds(10, 80, 400, 285);
+        this.jtbTable.setSelectionBackground(Color.GREEN);
+        this.add(scrollPane);
+        this.jtbTable.addMouseListener(this);
+    } // inicializa el modelo de la tabla cargando los valores del archivo
+
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        this.position=this.jtbTable.getSelectedRow();
     }
 
     @Override
@@ -300,7 +366,7 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
                     initTableBook(this.list1, name, this.format, 0);
                 }
             }
-        } else {
+        } else if (e.getSource() == this.jtfCode) {
             int keycode = e.getKeyChar();
 
             if (keycode != 8) {
@@ -319,6 +385,26 @@ public class JIFLoan extends JInternalFrame implements ActionListener, MouseList
 
                 }
             }
+        } else {
+            int keycode = e.getKeyChar();
+
+            if (keycode != 8) {
+                this.code = code + (char) keycode;
+                System.out.println(code);
+                if (code.length() <= 5) {
+                    initTableMaterial(this.list2, code, format, 1);
+                }
+
+            } else {
+                if (code.length() >= 1) {
+                    this.code = code.substring(0, code.length() - 1);
+                    if (code.length() <= 9) {
+                        initTableMaterial(this.list2, code, format, 1);
+                    }
+
+                }
+            }
+
         }
 
     }

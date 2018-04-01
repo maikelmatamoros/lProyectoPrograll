@@ -113,6 +113,11 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
 
         this.bgFormat.add(this.jrbDigital);
         this.bgFormat.add(this.jrbPhysical);
+        this.jbOkAudiovisual.addActionListener(this);
+        this.jbOkBook.addActionListener(this);
+        this.jbSearch.addActionListener(this);
+        this.jbOkDisk.addActionListener(this);
+        this.jbOkOther.addActionListener(this);
     } // initComponets
 
     private void initBook() {
@@ -124,8 +129,7 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.jbOkBook.setFocusable(false);
         this.jbSearch.setFocusable(false);
 
-        this.jbOkBook.addActionListener(this);
-        this.jbSearch.addActionListener(this);
+        
 
         this.jlImage.setBounds(30, 70, 50, 15);
         this.jlName.setBounds(30, 110, 40, 15);
@@ -174,7 +178,7 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.setSize(360, 240);
         refresh();
 
-        this.jbOkAudiovisual.addActionListener(this);
+        
         this.jbOkAudiovisual.setFocusable(false);
 
         this.jlBrand.setBounds(30, 70, 50, 15);
@@ -194,7 +198,7 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.setSize(360, 300);
         refresh();
 
-        this.jbOkDisk.addActionListener(this);
+        
         this.jbOkDisk.setFocusable(false);
 
         this.jlType.setBounds(30, 70, 50, 15);
@@ -218,7 +222,7 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.setSize(360, 240);
         refresh();
 
-        this.jbOkOther.addActionListener(this);
+        
         this.jbOkOther.setFocusable(false);
 
         this.jlName.setBounds(30, 70, 50, 15);
@@ -345,11 +349,15 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
                 initOther();
             }
         } else if (e.getSource() == this.jbOkBook) {
-            try {
+            
                 String name = this.jtfName.getText();
                 String author = this.jtfAuthor.getText();
                 String language = this.jtfLanguage.getText();
                 String country = this.jtfCountry.getText();
+                if(Integer.parseInt(this.jtfYear.getText())>1){
+                    System.out.println("Entra");
+                }
+                
                 int year = Integer.parseInt(this.jtfYear.getText());
                 if (name.equals("") || author.equals("") || language.equals("") || country.equals("")) {
                     JOptionPane.showMessageDialog(this, "All spaces are required", "Error", 0);
@@ -374,12 +382,11 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
                         Logger.getLogger(JIFNewMaterial.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(this, "The year must be a number.", "Error", 0);
-            }
+            
 
         } else if (e.getSource() == this.jbOkAudiovisual) {
             try {
+                
                 this.materialBusiness.addMaterial(new Audiovisual(this.jcbBrand.getSelectedItem().toString(),
                         this.jtfDescription.getText(), -1, this.jcbOption.getSelectedItem().toString(),
                         true), 1);
