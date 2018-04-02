@@ -1,6 +1,6 @@
 package domain;
 
-public class Book extends Material{
+public class Book extends Material {
 
     private String name;
     private String author;
@@ -9,7 +9,8 @@ public class Book extends Material{
     private String language;
     private String country;
     private String format;
-    private String pathImage;
+    private int amount;
+    private int amountAvaiable;
 
     public Book() {
         this.name = "";
@@ -19,11 +20,12 @@ public class Book extends Material{
         this.language = "";
         this.country = "";
         this.format = "";
-        this.pathImage = "";//QUEMAR
+        this.amount = -1;
+        this.amountAvaiable = -1;
     } // constructor
 
-    public Book(String name, String author, int year, String theme, String language, String country, String format, int code, String type, int amount, int amountAvaiable) {
-        super(code, type, amount, amountAvaiable);
+    public Book(String name, String author, int year, String theme, String language, String country, String format, int amount, int amountAvaiable, int code, String type) {
+        super(code, type);
         this.name = name;
         this.author = author;
         this.year = year;
@@ -31,7 +33,8 @@ public class Book extends Material{
         this.language = language;
         this.country = country;
         this.format = format;
-        this.pathImage = "";//QUEMAR
+        this.amount = amount;
+        this.amountAvaiable = amountAvaiable;
     } // constructor sobrecargado
 
     public String getName() {
@@ -90,17 +93,32 @@ public class Book extends Material{
         this.format = format;
     }
 
-    public String getPathImage() {
-        return pathImage;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setPathImage(String pathImage) {
-        this.pathImage = pathImage;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
+
+    public int getAmountAvaiable() {
+        return amountAvaiable;
+    }
+
+    public void setAmountAvaiable(int amountAvaiable) {
+        this.amountAvaiable = amountAvaiable;
+    }
+
+    public void addUnit(int quantity) {
+        setAmount(getAmount() + quantity);
+        setAmountAvaiable(getAmountAvaiable() + quantity);
+    } // addUnit
 
     @Override
     public String toString() {
-        return super.toString() + "Book{" + "name=" + name + ", author=" + author + ", year=" + year + ", theme=" + theme + ", language=" + language + ", country=" + country + ", format=" + format + ", pathImage=" + pathImage + '}';
+        return super.toString() + "Book{" + "name=" + name + ", author=" + author + ", year=" + year + ", theme=" + theme + ", language=" + language + ", country=" + country + ", format=" + format + ", amount=" + amount + ", amountAvaiable=" + amountAvaiable + '}';
     }
+    
+    
 
 } // fin de la clase

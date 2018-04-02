@@ -26,12 +26,11 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
     private MaterialBusiness materialBusiness;
 
     private JComboBox jcbOption, jcbTheme, jcbBrand, jcbType;
-    private JLabel jlImage, jlName, jlAuthor, jlYear, jlTheme, jlLanguage, jlCountry, jlFormat, jlBrand, jlDescription, jlType;
-    private JTextField jtfPathImage, jtfName, jtfAuthor, jtfYear, jtfLanguage, jtfCountry, jtfDescription;
+    private JLabel jlName, jlAuthor, jlYear, jlTheme, jlLanguage, jlCountry, jlFormat, jlBrand, jlDescription, jlType;
+    private JTextField jtfName, jtfAuthor, jtfYear, jtfLanguage, jtfCountry, jtfDescription;
     private JRadioButton jrbPhysical, jrbDigital;
     private ButtonGroup bgFormat;
-    private JButton jbSearch, jbOkBook, jbOkAudiovisual, jbOkDisk, jbOkOther;
-    private String pathImage;
+    private JButton jbOkBook, jbOkAudiovisual, jbOkDisk, jbOkOther;
 
     public JIFNewMaterial() {
         super("New Material", false, true, false, false);
@@ -65,7 +64,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.jlYear = new JLabel("Year");
         this.jlType = new JLabel("Type");
         this.jlName = new JLabel("Name");
-        this.jlImage = new JLabel("Image");
         this.jlBrand = new JLabel("Brand");
         this.jlTheme = new JLabel("Theme");
         this.jlAuthor = new JLabel("Author");
@@ -79,15 +77,12 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.jtfAuthor = new JTextField();
         this.jtfCountry = new JTextField();
         this.jtfLanguage = new JTextField();
-        this.jtfPathImage = new JTextField();
-        this.jtfPathImage.setEditable(false);
         this.jtfDescription = new JTextField();
 
         this.jbOkBook = new JButton("OK");
         this.jbOkAudiovisual = new JButton("OK");
         this.jbOkDisk = new JButton("OK");
         this.jbOkOther = new JButton("OK");
-        this.jbSearch = new JButton("...");
 
         this.jrbDigital = new JRadioButton("Digital");
         this.jrbPhysical = new JRadioButton("Physical");
@@ -100,10 +95,8 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.bgFormat = new ButtonGroup();
 
         this.jbOkBook.setFocusable(false);
-        this.jbSearch.setFocusable(false);
 
         this.jbOkBook.addActionListener(this);
-        this.jbSearch.addActionListener(this);
 
         this.jbOkAudiovisual.addActionListener(this);
         this.jbOkAudiovisual.setFocusable(false);
@@ -134,9 +127,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.setSize(360, 480);
         refresh();
 
-        this.pathImage = "";
-
-        this.jlImage.setBounds(30, 70, 50, 15);
         this.jlName.setBounds(30, 110, 40, 15);
         this.jlAuthor.setBounds(30, 150, 50, 15);
         this.jlYear.setBounds(30, 190, 70, 15);
@@ -144,7 +134,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.jlLanguage.setBounds(30, 270, 100, 15);
         this.jlCountry.setBounds(30, 310, 70, 15);
         this.jlFormat.setBounds(30, 350, 70, 15);
-        this.jtfPathImage.setBounds(130, 65, 170, 25);
         this.jtfName.setBounds(130, 105, 170, 25);
         this.jtfAuthor.setBounds(130, 145, 170, 25);
         this.jtfYear.setBounds(130, 185, 170, 25);
@@ -154,11 +143,9 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.jrbDigital.setBounds(125, 350, 85, 15);
         this.jrbPhysical.setBounds(210, 350, 170, 15);
         this.jbOkBook.setBounds(230, 390, 70, 40);
-        this.jbSearch.setBounds(305, 65, 25, 25);
 
         this.jrbDigital.setSelected(true);
 
-        this.add(this.jlImage);
         this.add(this.jlName);
         this.add(this.jlAuthor);
         this.add(this.jlYear);
@@ -166,7 +153,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.add(this.jlLanguage);
         this.add(this.jlCountry);
         this.add(this.jlFormat);
-        this.add(this.jtfPathImage);
         this.add(this.jtfName);
         this.add(this.jtfAuthor);
         this.add(this.jtfYear);
@@ -176,7 +162,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.add(this.jrbDigital);
         this.add(this.jrbPhysical);
         this.add(this.jbOkBook);
-        this.add(this.jbSearch);
     } // initBook
 
     private void initAudiovisual() {
@@ -244,9 +229,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         if (this.jcbType.isShowing()) {
             this.remove(this.jcbType);
         }
-        if (this.jlImage.isShowing()) {
-            this.remove(this.jlImage);
-        }
         if (this.jlName.isShowing()) {
             this.remove(this.jlName);
         }
@@ -277,9 +259,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         if (this.jlType.isShowing()) {
             this.remove(this.jlType);
         }
-        if (this.jtfPathImage.isShowing()) {
-            this.remove(this.jtfPathImage);
-        }
         if (this.jtfName.isShowing()) {
             this.remove(this.jtfName);
         }
@@ -304,9 +283,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         if (this.jrbDigital.isShowing()) {
             this.remove(this.jrbDigital);
         }
-        if (this.jbSearch.isShowing()) {
-            this.remove(this.jbSearch);
-        }
         if (this.jbOkBook.isShowing()) {
             this.remove(this.jbOkBook);
         }
@@ -327,7 +303,6 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
         this.jtfAuthor.setText("");
         this.jtfCountry.setText("");
         this.jtfLanguage.setText("");
-        this.jtfPathImage.setText("");
         this.jtfDescription.setText("");
     } // cleanTextFields
 
@@ -355,12 +330,8 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
                     JOptionPane.showMessageDialog(this, "All spaces are required", "Error", 0);
                 } else {
                     Book book = new Book(name, author, year, this.jcbTheme.getSelectedItem().toString(),
-                            language, country, "", -1, this.jcbOption.getSelectedItem().toString(), 1, 1);
-                    if (!this.pathImage.equals("")) {
-                        book.setPathImage(this.pathImage);
-                    } else {
-                        book.setPathImage("/assets/sinIma.png");
-                    }
+                            language, country, "", 1, 1, -1, this.jcbOption.getSelectedItem().toString());
+
                     if (this.jrbDigital.isSelected()) {
                         book.setFormat("Digital");
                     } else {
@@ -377,12 +348,12 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(this, "The year must be a number.", "Error", 0);
             }
-
         } else if (e.getSource() == this.jbOkAudiovisual) {
             try {
                 this.materialBusiness.addMaterial(new Audiovisual(this.jcbBrand.getSelectedItem().toString(),
                         this.jtfDescription.getText(), -1, this.jcbOption.getSelectedItem().toString(),
                         true), 1);
+    
                 JOptionPane.showMessageDialog(this, "Success");
                 cleanTextFields();
             } catch (IOException | ClassNotFoundException ex) {
@@ -415,21 +386,8 @@ public class JIFNewMaterial extends JInternalFrame implements ActionListener, In
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(JIFNewMaterial.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (e.getSource() == this.jbSearch) {
-            this.pathImage = pathImage();
-            this.jtfPathImage.setText(this.pathImage);
         }
     } // actionPerformed
-
-    private String pathImage() {
-        JFileChooser chooser = new JFileChooser();
-        //FileNameExtensionFilter fnef = new FileNameExtensionFilter("image", "png");
-        //chooser.setFileFilter(fnef);
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            return chooser.getSelectedFile().getPath();
-        }
-        return "/assets/sinIma.png";
-    } // pathImage
 
     @Override
     public void internalFrameOpened(InternalFrameEvent e) {

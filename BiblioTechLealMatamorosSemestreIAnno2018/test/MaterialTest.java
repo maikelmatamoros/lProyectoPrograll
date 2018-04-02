@@ -44,9 +44,7 @@ public class MaterialTest {
         for (int i = 1; i <= 5; i++) {
             try {
                 if (i % 2 == 0) {
-                    materialFile.addMaterial(new Book("name"+i, "author"+i, i,
-                            "theme"+i, "language"+i, "country"+i, "format"+i,
-                            i, "type"+i, i, i));
+//                    materialFile.addMaterial(new Book(name, author, i, theme, language, country, format, i, i, i, type)
                 } else {
                     materialFile.addMaterial(new Audiovisual("brand"+i, "description"+i, i, "type"+i, true));
                 }

@@ -1,5 +1,6 @@
 package file;
 
+import domain.Book;
 import domain.Material;
 import java.io.File;
 import java.io.FileInputStream;
@@ -106,7 +107,7 @@ public class MaterialFile {
         List<Material> materials = getAllMaterials();
         for (Material material : materials) {
             if (material.getCode() == code) {
-                material.addUnit(quantity);
+                ((Book)material).addUnit(quantity);
                 rewrite(materials);
                 break;
             }
